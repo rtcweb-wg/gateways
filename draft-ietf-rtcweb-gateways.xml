@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="info" docName="draft-ietf-rtcweb-gateways-01" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-rtcweb-gateways-01" ipr="trust200902">
   <front>
     <title abbrev="WebRTC Gateways">WebRTC Gateways</title>
 
@@ -73,10 +73,11 @@
       do everything a WebRTC endpoint does), but is able to interoperate with
       WebRTC endpoints.</t>
 
-      <t>As a matter of terminology, this document uses RFC 2119 language even
-      though it is not a standards-track specification; this is used to call
-      attention to features where non-conformance will render a gateway unable
-      to interoperate with WebRTC-based endpoints.</t>
+      <t>NOTE IN DRAFT: There is still not a WG consensus called on whether
+      this document is Informational or standards-track. If it becomes
+      informational, the use of RFC 2119 language is used to call attention to
+      features where non-conformance will render a gateway unable to
+      interoperate with WebRTC-based endpoints.</t>
 
       <section title="Implications of the gateway environment">
         <t>A gateway will be limited in the functionality it can offer by the
@@ -133,17 +134,18 @@
 
       <t>A WebRTC gateway which is expected to be deployed where it can be
       reached with a static IP address (as seen from the client) does not need
-      to support full ICE; it therefore may implement ICE-Lite only.</t>
+      to support full ICE; it therefore MAY implement ICE-Lite only.</t>
 
-      <t>ICE-Lite implementations do not send consent checks, so a gateway may
+      <t>ICE-Lite implementations do not send consent checks, so a gateway MAY
       choose not to send consent checks too, but MUST respond to consent
       checks it receives.</t>
 
-      <t>A gateway is expected to not need to hide its location, so it does
-      not need to support functionality for operating only via a TURN server;
-      instead it may choose to produce Host ICE candidates only.</t>
+      <t>A gateway with a static IP address is expected to not need to hide
+      its location, so it does not need to support functionality for operating
+      only via a TURN server; instead it MAY choose to produce Host ICE
+      candidates only.</t>
 
-      <t>If a gateway serves as a media relay into another RTP domain, it may
+      <t>If a gateway serves as a media relay into another RTP domain, it MAY
       choose to support only features available in that network. This means
       that it may choose to not support Bundle and any of the RTP/RTCP
       extensions related to it, RTCP-Mux, or Trickle Ice. However, the gateway
@@ -156,7 +158,7 @@
       4.1.1) can only use one track of each media type.</t>
 
       <t>If a gateway serves as a media relay into a network or to devices not
-      implementing the WebRTC Datachannel, it may choose to not support the
+      implementing the WebRTC Datachannel, it MAY choose to not support the
       Datachannel.</t>
     </section>
 
@@ -250,8 +252,6 @@
         </list>Changes from draft-ietf-rtcweb-gateways-00</t>
 
       <t><list style="symbols">
-          <t>Reclassified document as Informational, per discussion</t>
-
           <t>Added note about impllications of non-support of BUNDLE</t>
 
           <t>Added "Considerations for SDP-using networks" section</t>
