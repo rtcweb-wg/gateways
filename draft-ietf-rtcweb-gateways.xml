@@ -61,7 +61,7 @@
 
       <t>WebRTC gateways are middle boxes which enable the exchange of media
       streams between WebRTC endpoints on one side, and the other types of
-      devices mentioned above on the other side. To the WebRTC endpoint, the
+      devices mentioned above on the other side. To a WebRTC endpoint, the
       gateway appears as a WebRTC-compatible endpoint.</t>
 
       <t>This document describes the requirements that need to be placed on
