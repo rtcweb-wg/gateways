@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="std" docName="draft-ietf-rtcweb-gateways-00"
+     ipr="trust200902">
+  <front>
+    <title abbrev="WebRTC Gateways">WebRTC Gateways</title>
+
+    <author fullname="Harald Alvestrand" initials="H. T." surname="Alvestrand">
+      <organization>Google</organization>
+
+      <address>
+        <email>harald@alvestrand.no</email>
+      </address>
+    </author>
+
+    <author fullname="Uwe Rauschenbach" initials="U." surname="Rauschenbach">
+      <organization>Nokia Networks</organization>
+
+      <address>
+        <email>uwe.rauschenbach@nokia.com</email>
+      </address>
+    </author>
+
+    <date day="27" month="May" year="2015"/>
+
+    <workgroup>RTCWeb Working Group</workgroup>
+
+    <abstract>
+      <t>This document specifies conformance requirements for a class of 
+	  WebRTC-compatible endpoints called "WebRTC gateways", 
+	  which interconnect between WebRTC endpoints and devices that are not 
+	  WebRTC endpoints.</t>
+    </abstract>
+
+    <note title="Requirements Language">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+      document are to be interpreted as described in <xref
+      target="RFC2119">RFC 2119</xref>.</t>
+    </note>
+  </front>
+
+  <middle>
+    <section title="Introduction">
+      <t>The WebRTC model described in <xref
+      target="I-D.ietf-rtcweb-overview"/> is focused on direct browser to
+      browser communication as its primary use case. Nevertheless, it is
+      clearly interesting to have WebRTC endpoints 
+      connect to other types of devices, including but not limited to SIP
+      phones, legacy phones, CLUE-based teleconferencing systems, XMPP-based
+      conferencing systems, and entirely proprietary devices or systems.</t>
+
+      <t>WebRTC gateways are a specific type of WebRTC-compatible endpoints  
+	  which enable the
+      exchange of media streams between WebRTC endpoints on one side, and the
+      other types of devices mentioned above on the other side.</t>
+
+      <t>This document describes the requirements that need to be placed on
+      such gateways, both the requirements on WebRTC endpoints that can
+      be relaxed and the additional requirements that need to be applied.</t>
+
+      <t>A WebRTC gateway is a WebRTC-compatible endpoint, and will thus not 
+	  be conformant with all requirements for a WebRTC endpoint 
+	  (it does not do everything a WebRTC endpoint does),
+      but is able to interoperate with WebRTC endpoints.</t>
+
+      <section title="Implications of the gateway environment">
+        <t>A gateway will be limited in the functionality it can offer by the
+        system or class of devices it is gatewaying to. For instance, a 
+		gateway into the telephone
+        system will not be able to relay data or video, no matter how much it
+        is required. Therefore, a number of functions that are mandatory to
+        support in WebRTC endpoints are not mandatory on gateways; the
+        requirement on the gateway is that it is able to negotiate those
+        features away correctly.</t>
+      </section>
+
+      <section title="Signalling model">
+        <t>The WebRTC model is that signalling is outside the scope of the
+        specification. This document does not change that.</t>
+
+        <t>Nevertheless, any practical gateway needs to deal with signalling. 
+			For that, this document assumes that the overall system consists of 
+			an application running in the WebRTC browser, 
+			possibly one or more signalling relays that mediate signalling and 
+			thereby enable communication between the application and the gateway, 
+			and the actual gateway that is responsible for handling the media 
+			flows.</t> 
+		
+		<t>The application, the signalling relays (if any) and the gateway
+            together need to be able to:</t>
+
+        <t>
+		<list style="symbols"><t>adhere to the offer/answer semantics</t>
+            <t>deal with the description of configuration coming from the
+            browser; this is specified in SDP format in the WebRTC browser
+            API</t>
+
+            <t>generate the information that is needed by the browser to set 
+				up the session, and express that information in the form of SDP.</t>
+          </list>
+		  
+		The shorthand notation "The gateway MUST/SHOULD/MAY support &lt;SDP 
+		function xxx&gt;" used below means
+        that an application running in the Web browser, the signalling 
+		relays, and the gateway together MUST/SHOULD/MAY
+        support this functionality; it is not a requirement that this happens 
+		at the media gateway itself.</t>
+		</section>
+    </section>
+
+    <section title="WebRTC non-browser requirements that can be relaxed">
+      <t>WebRTC gateways are intended to communicate with WebRTC endpoints. 
+	  WebRTC gateways are no User Agents. They are therefore expected to 
+	  conform to the requirements for WebRTC non-browsers in [I-D.ietf-rtcweb-overview], 
+	  with the exceptions defined in this section.</t>
+
+      <t>A WebRTC gateway which is expected to be deployed where it can be reached 
+	  with a static IP address (as seen from the client) does not need to support 
+	  full ICE; it therefore MAY implement ICE-Lite only.</t>
+
+      <t>ICE-Lite implementations do not send consent checks, so a gateway MAY
+      choose not to send consent checks too, but MUST respond to consent
+      checks it receives.</t>
+
+      <t>A gateway is expected to not need to hide its location, so it does
+      not need to support functionality for operating only via a TURN server;
+      instead it MAY choose to produce Host ICE candidates only.</t>
+
+      <t>If a gateway serves as a media relay into another RTP domain, it MAY
+      choose to support only features available in that network. This means
+      that it MAY not (need to) support Bundle and any of the RTP/RTCP
+      extensions related to it, RTCP-Mux, or Trickle Ice. However, the gateway
+      MUST support DTLS-SRTP, since this is required for interworking with
+      WebRTC endpoints.</t>
+
+      <t>If a gateway serves as a media relay into a network or to devices not
+      implementing the WebRTC Datachannel, it MAY choose to not support the
+      Datachannel.</t>
+    </section>
+
+    <section title="Additional WebRTC gateway requirements">
+      <t>(nothing yet)</t>
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This document makes no request of IANA.</t>
+
+      <t>Note to RFC Editor: this section may be removed on publication as an
+      RFC.</t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>A WebRTC gateway may operate in two security modes: Security-context
+      termination and security-context relaying.</t>
+
+      <t>Relaying is only possible where signed and encrypted content can be
+      passed through unchanged, and where keys can be exchanged directly
+      between the endpoints.</t>
+
+      <t>When the gateway terminates the security context, it means that the
+      WebRTC user has to place trust in the gateway to perform all
+      verification of identity and protection of content in the realm on the
+      other side of the gateway; there is no way the end-user can detect a
+      man-in-the-middle attack, an identity spoofing attack or a recording
+      done at the gateway. For many scenarios, this is not going to be seen as
+      a problem, but needs to be considered when one decides to use a
+      gatewayed service.</t>
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>Several comments from Christer Holmberg and Andrew Hutton were included.</t>
+    </section>
+	
+	<section title="Change history">
+		<t>Changes from draft-alvestrand-rtcweb-gateways-00
+			<list style="symbols">
+				<t>Aligned terminology with draft-rtcweb-overview-12</t>
+				<t>Rewrote text on signaling to improve clarity</t>
+				<t>Editorial nits</t>
+			</list>
+		</t>
+		<t>Changes from draft-alvestrand-rtcweb-gateways-01
+			<list style="symbols">
+				<t>Aligned terminology with draft-rtcweb-overview-13 ("non-browser")</t>
+				<t>Nits</t>
+			</list>
+		</t>
+		<t>Changes from draft-alvestrand-rtcweb-gateways-02
+			<list style="symbols">
+				<t>Re-submitted as WG draft</t>
+				<t>Addressed a comment from Andrew Hutton that deployment in open internet is an option, not a fact.</t>
+			</list>
+		</t>
+    </section>
+
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include="reference.RFC.2119"?>
+
+      <?rfc include='reference.I-D.ietf-rtcweb-overview'?>
+    </references>
+  </back>
+</rfc>
