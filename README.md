@@ -1,7 +1,7 @@
-# |DRAFT-TITLE|
+# WebRTC Gateways
 
 This is the working area for the [IETF RTCWEB Working
-Group](https://trac.tools.ietf.org/wg/RTCWEB/trac/wiki) draft of |DRAFT-TITLE|
+Group](https://trac.tools.ietf.org/wg/RTCWEB/trac/wiki) draft of draft-ietf-rtcweb-gateways.
 
 * [Editor's copy](https://rtcweb-wg.github.io/gateways/)
 * [Working Group Draft] (https://tools.ietf.org/html/draft-ietf-rtcweb-gateways)
