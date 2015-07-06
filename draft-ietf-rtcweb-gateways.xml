@@ -59,19 +59,19 @@
       CLUE-based teleconferencing systems, XMPP-based conferencing systems,
       and entirely proprietary devices or systems.</t>
 
-      <t>WebRTC gateways are a specific type of WebRTC-compatible endpoints
-      which enable the exchange of media streams between WebRTC endpoints on
-      one side, and the other types of devices mentioned above on the other
-      side.</t>
+      <t>WebRTC gateways are middle boxes which enable the exchange of media
+      streams between WebRTC endpoints on one side, and the other types of
+      devices mentioned above on the other side. To the WebRTC endpoint, the
+      gateway appears as a WebRTC-compatible endpoint.</t>
 
       <t>This document describes the requirements that need to be placed on
       such gateways, both the requirements on WebRTC endpoints that can be
       relaxed and the additional requirements that need to be applied.</t>
 
-      <t>A WebRTC gateway is a WebRTC-compatible endpoint, and will thus not
-      be conformant with all requirements for a WebRTC endpoint (it does not
-      do everything a WebRTC endpoint does), but is able to interoperate with
-      WebRTC endpoints.</t>
+      <t>A WebRTC gateway appears as a WebRTC-compatible endpoint, and will
+      thus not be conformant with all requirements for a WebRTC endpoint (it
+      does not do everything a WebRTC endpoint does), but is able to
+      interoperate with WebRTC endpoints.</t>
 
       <t>NOTE IN DRAFT: There is still not a WG consensus called on whether
       this document is Informational or standards-track. If it becomes
@@ -122,15 +122,14 @@
     </section>
 
     <section title="WebRTC non-browser requirements that can be relaxed">
-      <t>WebRTC gateways are intended to communicate with WebRTC endpoints.
-      WebRTC gateways are not User Agents. They are therefore expected to
-      conform to the requirements for WebRTC non-browsers in <xref
-      target="I-D.ietf-rtcweb-overview"/>. Some features that typical WebRTC
-      endpoints are required to support may be meaningless or unneccesary for
-      WebRTC gateways; some such things are noted in this section. This lack
-      of conformance means that a gateway is considered a WebRTC-compatible
-      endpoint, not a WebRTC endpoint (unless a particular gateway claims to
-      be a WebRTC endpoint, which it is of course allowed to do).</t>
+      <t>WebRTC gateways are intended to communicate with WebRTC
+      endpoints<xref target="I-D.ietf-rtcweb-overview"/>. Some features that
+      typical WebRTC endpoints are required to support may be meaningless or
+      unneccesary for WebRTC gateways; some such things are noted in this
+      section. This lack of conformance means that a gateway is considered a
+      WebRTC-compatible endpoint, not a WebRTC endpoint (unless a particular
+      gateway claims to be a WebRTC endpoint, which it is of course allowed to
+      do).</t>
 
       <t>A WebRTC gateway which is expected to be deployed where it can be
       reached with a static IP address (as seen from the client) does not need
@@ -147,7 +146,7 @@
 
       <t>If a gateway serves as a media relay into another RTP domain, it MAY
       choose to support only features available in that network. This means
-      that it may choose to not support Bundle and any of the RTP/RTCP
+      that it MAY choose to not support Bundle and any of the RTP/RTCP
       extensions related to it, RTCP-Mux, or Trickle Ice. However, the gateway
       MUST support DTLS-SRTP, since this is required for interworking with
       WebRTC endpoints.</t>
@@ -170,7 +169,8 @@
       <t>Some networks that are gatewayed into, such as SIP networks, will
       also use SDP to represent the media configurations. Gateways will,
       however, need to inspect and probably modify the SDP passed between the
-      networks to achieve maximum interoperability.</t>
+      SDP-using network and the WebRTC endpoints to achieve maximum
+      interoperability.</t>
 
       <t>Considerations include:</t>
 
@@ -178,7 +178,9 @@
           <t>If a correspondent does not offer the features WebRTC depends on,
           connections will not complete. The support for dtls-srtp, shown by
           the "fingerprint" attribute, is the most obvious example. The
-          gateway is probably better off failing such calls early.</t>
+          gateway is probably better off either ending such calls early or
+          acting as a full B2BUA (as defined in <xref target="RFC3261"/>) with
+          media gatewaying.</t>
 
           <t>If a correspondent makes an offer using features that are not
           required by JSEP, these may not be understood by the WebRTC
@@ -187,9 +189,10 @@
 
           <t>Certain ancient practices (such as using port 0 to place a media
           section on hold with the intent of resuming it later) are not
-          conformant with the SDP spec. Since WebRTC implementations are
-          expected to be SDP-conformant, such practices may need to be
-          stripped out by the gateway</t>
+          conformant with the SDP offer/answer spec (<xref target="RFC3264"/>
+          section 8.2). Since WebRTC implementations are expected to be SDP
+          offer/answer conformant, such practices may need to be stripped out
+          by the gateway</t>
         </list>[NOTE IN DRAFT: This section may need expanding.]</t>
 
       <t/>
@@ -266,6 +269,12 @@
       <?rfc include='reference.I-D.ietf-rtcweb-jsep'?>
 
       <?rfc include='reference.I-D.ietf-rtcweb-overview'?>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include='reference.RFC.3261'?>
+
+      <?rfc include='reference.RFC.3264'?>
     </references>
   </back>
 </rfc>
