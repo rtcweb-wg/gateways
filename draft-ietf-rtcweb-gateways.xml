@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="std" docName="draft-ietf-rtcweb-gateways-01" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-rtcweb-gateways-02" ipr="trust200902">
   <front>
     <title abbrev="WebRTC Gateways">WebRTC Gateways</title>
 
@@ -30,7 +30,7 @@
       </address>
     </author>
 
-    <date day="6" month="July" year="2015"/>
+    <date day="21" month="January" year="2016"/>
 
     <workgroup>RTCWeb Working Group</workgroup>
 
@@ -258,7 +258,8 @@
           <t>Added note about impllications of non-support of BUNDLE</t>
 
           <t>Added "Considerations for SDP-using networks" section</t>
-        </list></t>
+        </list>Changes from draft-ietf-rtcweb-gateways-01: None, this is a
+      keepalive update.</t>
     </section>
   </middle>
 
